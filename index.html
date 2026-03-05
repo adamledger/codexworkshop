@@ -11,6 +11,10 @@
     :root {
       --bg-0: #05070f;
       --bg-1: #0b1224;
+      --bg-r1: rgba(85, 178, 255, 0.22);
+      --bg-r2: rgba(43, 240, 174, 0.12);
+      --title: #eaf3ff;
+      --title-glow: rgba(89, 188, 255, 0.35);
       --panel: rgba(14, 22, 46, 0.72);
       --line: rgba(119, 162, 255, 0.35);
       --text: #e9f0ff;
@@ -21,6 +25,24 @@
       --warn: #ffc857;
       --ok-glow: 0 0 26px rgba(43, 240, 174, 0.35);
       --down-glow: 0 0 26px rgba(255, 92, 136, 0.35);
+      --grid-line-a: rgba(255,255,255,0.03);
+      --grid-line-b: rgba(255,255,255,0.02);
+      --btn-border: rgba(127, 176, 255, 0.4);
+      --btn-bg-a: rgba(31,54,113,0.65);
+      --btn-bg-b: rgba(15,28,60,0.8);
+      --btn-hover-border: rgba(130, 205, 255, 0.8);
+      --btn-hover-glow: rgba(83, 168, 255, 0.25);
+      --chip-bg: rgba(19, 33, 66, 0.8);
+      --card-border: rgba(118, 168, 255, 0.35);
+      --card-hover-border: rgba(154, 199, 255, 0.75);
+      --toggle-text-up: #06111a;
+      --toggle-text-down: #ffffff;
+      --toggle-up-a: #69ffd0;
+      --toggle-up-b: #2bf0ae;
+      --toggle-down-a: #ff7098;
+      --toggle-down-b: #ff487c;
+      --banner-error: #ff9db7;
+      --banner-ok: #89ffd9;
     }
 
     * { box-sizing: border-box; }
@@ -31,8 +53,8 @@
       color: var(--text);
       font-family: "Space Grotesk", system-ui, sans-serif;
       background:
-        radial-gradient(1000px 600px at 85% -20%, rgba(85, 178, 255, 0.22), transparent 60%),
-        radial-gradient(700px 420px at -10% 120%, rgba(43, 240, 174, 0.12), transparent 65%),
+        radial-gradient(1000px 600px at 85% -20%, var(--bg-r1), transparent 60%),
+        radial-gradient(700px 420px at -10% 120%, var(--bg-r2), transparent 65%),
         linear-gradient(150deg, var(--bg-0), var(--bg-1));
       overflow-x: hidden;
     }
@@ -43,8 +65,8 @@
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        linear-gradient(var(--grid-line-a) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line-b) 1px, transparent 1px);
       background-size: 38px 38px;
       mask-image: radial-gradient(ellipse at center, black 35%, transparent 90%);
       opacity: 0.5;
@@ -72,8 +94,8 @@
       font: 700 1.55rem/1.1 "Orbitron", sans-serif;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #eaf3ff;
-      text-shadow: 0 0 20px rgba(89, 188, 255, 0.35);
+      color: var(--title);
+      text-shadow: 0 0 20px var(--title-glow);
     }
 
     .sub {
@@ -90,8 +112,8 @@
     }
 
     button {
-      border: 1px solid rgba(127, 176, 255, 0.4);
-      background: linear-gradient(180deg, rgba(31,54,113,0.65), rgba(15,28,60,0.8));
+      border: 1px solid var(--btn-border);
+      background: linear-gradient(180deg, var(--btn-bg-a), var(--btn-bg-b));
       color: var(--text);
       padding: 10px 14px;
       border-radius: 11px;
@@ -103,8 +125,21 @@
 
     button:hover {
       transform: translateY(-1px);
-      border-color: rgba(130, 205, 255, 0.8);
-      box-shadow: 0 0 20px rgba(83, 168, 255, 0.25);
+      border-color: var(--btn-hover-border);
+      box-shadow: 0 0 20px var(--btn-hover-glow);
+    }
+
+    .theme-select {
+      border: 1px solid var(--btn-border);
+      background: linear-gradient(180deg, var(--btn-bg-a), var(--btn-bg-b));
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 11px;
+      font: 600 0.88rem/1 "Space Grotesk", sans-serif;
+      letter-spacing: 0.03em;
+      min-width: 140px;
+      outline: none;
+      cursor: pointer;
     }
 
     .meta {
@@ -117,7 +152,7 @@
     }
 
     .chip {
-      background: rgba(19, 33, 66, 0.8);
+      background: var(--chip-bg);
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 8px 12px;
@@ -134,7 +169,7 @@
 
     .card {
       position: relative;
-      border: 1px solid rgba(118, 168, 255, 0.35);
+      border: 1px solid var(--card-border);
       background: var(--panel);
       border-radius: 16px;
       padding: 14px;
@@ -145,7 +180,7 @@
 
     .card:hover {
       transform: translateY(-2px);
-      border-color: rgba(154, 199, 255, 0.75);
+      border-color: var(--card-hover-border);
     }
 
     .card.up { box-shadow: var(--ok-glow); }
@@ -194,16 +229,16 @@
       text-transform: uppercase;
       font-size: 0.75rem;
       letter-spacing: 0.06em;
-      color: #06111a;
+      color: var(--toggle-text-up);
     }
 
     .toggle.up {
-      background: linear-gradient(160deg, #69ffd0, #2bf0ae);
+      background: linear-gradient(160deg, var(--toggle-up-a), var(--toggle-up-b));
     }
 
     .toggle.down {
-      color: #fff;
-      background: linear-gradient(160deg, #ff7098, #ff487c);
+      color: var(--toggle-text-down);
+      background: linear-gradient(160deg, var(--toggle-down-a), var(--toggle-down-b));
     }
 
     .status-banner {
@@ -213,8 +248,8 @@
       color: var(--muted);
     }
 
-    .status-banner.error { color: #ff9db7; }
-    .status-banner.ok { color: #89ffd9; }
+    .status-banner.error { color: var(--banner-error); }
+    .status-banner.ok { color: var(--banner-ok); }
 
     @keyframes rise {
       from {
@@ -236,6 +271,11 @@
         <div class="sub">Real-time health checks and manual service recovery controls</div>
       </div>
       <div class="controls">
+        <select id="themeSelect" class="theme-select" aria-label="Theme">
+          <option value="Techno">Theme: Techno</option>
+          <option value="Happy">Theme: Happy</option>
+          <option value="Day">Theme: Day</option>
+        </select>
         <button id="refreshBtn" type="button">Refresh</button>
         <button id="autoBtn" type="button">Auto Refresh: ON</button>
       </div>
@@ -269,9 +309,124 @@
     const statusBanner = document.getElementById("statusBanner");
     const refreshBtn = document.getElementById("refreshBtn");
     const autoBtn = document.getElementById("autoBtn");
+    const themeSelect = document.getElementById("themeSelect");
+    const rootStyle = document.documentElement.style;
+
+    const THEMES = {
+      Techno: {
+        "--bg-0": "#05070f",
+        "--bg-1": "#0b1224",
+        "--bg-r1": "rgba(85, 178, 255, 0.22)",
+        "--bg-r2": "rgba(43, 240, 174, 0.12)",
+        "--title": "#eaf3ff",
+        "--title-glow": "rgba(89, 188, 255, 0.35)",
+        "--panel": "rgba(14, 22, 46, 0.72)",
+        "--line": "rgba(119, 162, 255, 0.35)",
+        "--text": "#e9f0ff",
+        "--muted": "#a9b4d8",
+        "--up": "#2bf0ae",
+        "--down": "#ff5c88",
+        "--ok-glow": "0 0 26px rgba(43, 240, 174, 0.35)",
+        "--down-glow": "0 0 26px rgba(255, 92, 136, 0.35)",
+        "--grid-line-a": "rgba(255,255,255,0.03)",
+        "--grid-line-b": "rgba(255,255,255,0.02)",
+        "--btn-border": "rgba(127, 176, 255, 0.4)",
+        "--btn-bg-a": "rgba(31,54,113,0.65)",
+        "--btn-bg-b": "rgba(15,28,60,0.8)",
+        "--btn-hover-border": "rgba(130, 205, 255, 0.8)",
+        "--btn-hover-glow": "rgba(83, 168, 255, 0.25)",
+        "--chip-bg": "rgba(19, 33, 66, 0.8)",
+        "--card-border": "rgba(118, 168, 255, 0.35)",
+        "--card-hover-border": "rgba(154, 199, 255, 0.75)",
+        "--toggle-text-up": "#06111a",
+        "--toggle-text-down": "#ffffff",
+        "--toggle-up-a": "#69ffd0",
+        "--toggle-up-b": "#2bf0ae",
+        "--toggle-down-a": "#ff7098",
+        "--toggle-down-b": "#ff487c",
+        "--banner-error": "#ff9db7",
+        "--banner-ok": "#89ffd9"
+      },
+      Happy: {
+        "--bg-0": "#20103f",
+        "--bg-1": "#ff8f6b",
+        "--bg-r1": "rgba(255, 228, 96, 0.35)",
+        "--bg-r2": "rgba(126, 255, 207, 0.30)",
+        "--title": "#fff7ea",
+        "--title-glow": "rgba(255, 233, 132, 0.55)",
+        "--panel": "rgba(58, 26, 92, 0.58)",
+        "--line": "rgba(255, 224, 117, 0.45)",
+        "--text": "#fff6f8",
+        "--muted": "#ffe1d6",
+        "--up": "#6cff8a",
+        "--down": "#ff547f",
+        "--ok-glow": "0 0 26px rgba(108, 255, 138, 0.42)",
+        "--down-glow": "0 0 26px rgba(255, 84, 127, 0.40)",
+        "--grid-line-a": "rgba(255,255,255,0.06)",
+        "--grid-line-b": "rgba(255,245,212,0.06)",
+        "--btn-border": "rgba(255, 221, 119, 0.65)",
+        "--btn-bg-a": "rgba(112,38,146,0.68)",
+        "--btn-bg-b": "rgba(68,24,117,0.82)",
+        "--btn-hover-border": "rgba(255, 240, 165, 0.95)",
+        "--btn-hover-glow": "rgba(255, 210, 114, 0.35)",
+        "--chip-bg": "rgba(83, 30, 126, 0.62)",
+        "--card-border": "rgba(255, 215, 122, 0.50)",
+        "--card-hover-border": "rgba(255, 242, 180, 0.92)",
+        "--toggle-text-up": "#142414",
+        "--toggle-text-down": "#ffffff",
+        "--toggle-up-a": "#beff83",
+        "--toggle-up-b": "#49dd98",
+        "--toggle-down-a": "#ff7aa9",
+        "--toggle-down-b": "#ff4f7f",
+        "--banner-error": "#ffd0df",
+        "--banner-ok": "#c8ffe7"
+      },
+      Day: {
+        "--bg-0": "#e9f6ff",
+        "--bg-1": "#d6e9ff",
+        "--bg-r1": "rgba(94, 157, 255, 0.18)",
+        "--bg-r2": "rgba(79, 207, 183, 0.16)",
+        "--title": "#0a315f",
+        "--title-glow": "rgba(84, 150, 255, 0.30)",
+        "--panel": "rgba(255, 255, 255, 0.68)",
+        "--line": "rgba(83, 143, 235, 0.40)",
+        "--text": "#143a67",
+        "--muted": "#456d96",
+        "--up": "#16b57e",
+        "--down": "#d63262",
+        "--ok-glow": "0 0 22px rgba(22, 181, 126, 0.26)",
+        "--down-glow": "0 0 22px rgba(214, 50, 98, 0.24)",
+        "--grid-line-a": "rgba(37, 83, 137, 0.09)",
+        "--grid-line-b": "rgba(37, 83, 137, 0.06)",
+        "--btn-border": "rgba(73, 132, 222, 0.52)",
+        "--btn-bg-a": "rgba(255,255,255,0.85)",
+        "--btn-bg-b": "rgba(227,240,255,0.92)",
+        "--btn-hover-border": "rgba(50, 119, 222, 0.80)",
+        "--btn-hover-glow": "rgba(88, 145, 229, 0.25)",
+        "--chip-bg": "rgba(255,255,255,0.78)",
+        "--card-border": "rgba(83, 143, 235, 0.42)",
+        "--card-hover-border": "rgba(47, 114, 217, 0.75)",
+        "--toggle-text-up": "#0a3c30",
+        "--toggle-text-down": "#ffffff",
+        "--toggle-up-a": "#7ef0c2",
+        "--toggle-up-b": "#2fd097",
+        "--toggle-down-a": "#ff89a5",
+        "--toggle-down-b": "#e44e77",
+        "--banner-error": "#c03560",
+        "--banner-ok": "#0d8d63"
+      }
+    };
 
     let autoEnabled = true;
     let pollHandle = null;
+
+    function applyTheme(themeName) {
+      const theme = THEMES[themeName] || THEMES.Techno;
+      Object.entries(theme).forEach(([key, value]) => {
+        rootStyle.setProperty(key, value);
+      });
+      themeSelect.value = THEMES[themeName] ? themeName : "Techno";
+    }
 
     function fmtTime() {
       return new Date().toLocaleString();
@@ -393,6 +548,12 @@
       setBanner(`Auto refresh ${autoEnabled ? "enabled" : "disabled"}.`);
     });
 
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+      setBanner(`Theme changed to ${themeSelect.value}.`, "ok");
+    });
+
+    applyTheme("Techno");
     fetchServices(true);
     applyPolling();
   </script>
