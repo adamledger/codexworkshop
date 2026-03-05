@@ -296,6 +296,7 @@
     const BASE_URL = "https://spathose-hygienically-sarita.ngrok-free.dev";
     const SERVICES_URL = `${BASE_URL}/services`;
     const STATUS_URL = `${BASE_URL}/services/status`;
+    const LOGIC_APP_URL = "https://prod-255.westeurope.logic.azure.com:443/workflows/bb0d084d805c4af88046a0e2029858cb/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=vorp-R34-HsnkqvJMiRbhEeP-_tDx294bQG0wo9aNU4";
     const API_HEADERS = {
       "Accept": "application/json",
       "ngrok-skip-browser-warning": "true"
@@ -523,13 +524,40 @@
 
         if (!res.ok) throw new Error(`Update failed (${res.status})`);
 
-        setBanner(`${name} set to ${up ? "UP" : "DOWN"}.`, "ok");
+        const logicPayload = { name, up };
+        const logicResult = await triggerLogicApp(logicPayload);
+        if (logicResult.ok) {
+          setBanner(`${name} set to ${up ? "UP" : "DOWN"} and Logic App triggered.`, "ok");
+        } else {
+          setBanner(`${name} set to ${up ? "UP" : "DOWN"}, but Logic App trigger failed: ${logicResult.error}`, "error");
+        }
         await fetchServices(false);
       } catch (err) {
         setBanner(`Failed to update ${name}: ${err.message}`, "error");
       } finally {
         buttonEl.disabled = false;
         buttonEl.textContent = prevText;
+      }
+    }
+
+    async function triggerLogicApp(payload) {
+      try {
+        const res = await fetch(LOGIC_APP_URL, {
+          method: "POST",
+          headers: {
+            ...API_HEADERS,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          return { ok: false, error: `HTTP ${res.status}` };
+        }
+
+        return { ok: true };
+      } catch (err) {
+        return { ok: false, error: err.message };
       }
     }
 
